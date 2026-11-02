@@ -1,18 +1,14 @@
 {
   "name": "mirrorforge",
   "version": "1.0.0",
-  "type": "commonjs",
-  "scripts": {
-    "start": "node server.js"
-  },
   "dependencies": {
-    "express": "^4.19.2",
-    "puppeteer": "^22.12.1",
+    "@vercel/blob": "^0.23.4",
+    "@sparticuz/chromium": "^123.0.1",
+    "puppeteer-core": "^22.12.1",
     "cheerio": "^1.0.0",
     "axios": "^1.7.2",
     "fs-extra": "^11.2.0",
-    "mime-types": "^2.1.35",
-    "path-to-regexp": "^6.2.2",
-    "nanoid": "^3.3.7"
+    "nanoid": "^3.3.7",
+    "path-to-regexp": "^6.2.2"
   }
 }
