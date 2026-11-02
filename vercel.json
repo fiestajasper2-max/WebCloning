@@ -1,0 +1,6 @@
+{
+  "functions": {
+    "api/build.js": { "maxDuration": 60, "memory": 1024 },
+    "api/m/[id]/[...path].js": { "maxDuration": 30, "memory": 512 }
+  }
+}
