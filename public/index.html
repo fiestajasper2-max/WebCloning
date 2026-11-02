@@ -9,20 +9,16 @@
 <body>
   <main>
     <h1>MirrorForge</h1>
-    <p class="sub">Paste a URL. Get the pages, images, fonts, CSS, JS, and replayed API responses back as a local site.</p>
+    <p class="sub">Paste a URL. We crawl it page-by-page, cache every asset + every API response in Blob, and let you open the mirror.</p>
 
     <form id="form">
       <input id="url" type="url" placeholder="https://example.com" required />
-      <div class="row">
-        <label>Max pages <input id="maxPages" type="number" value="30" min="1" max="200" /></label>
-        <button type="submit">Build mirror</button>
-      </div>
+      <button type="submit">Build mirror</button>
     </form>
 
     <section id="job" hidden>
       <h2>Job <code id="jobId"></code></h2>
       <p id="status">starting…</p>
-      <pre id="log"></pre>
       <a id="open" hidden target="_blank">Open mirror →</a>
     </section>
 
