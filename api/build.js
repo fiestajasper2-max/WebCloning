@@ -2,9 +2,9 @@
 const { nanoid } = require('nanoid');
 const store = require('../lib/store');
 
-// 55s leaves headroom under the 60s Pro cap.
-// If you are on Hobby, change this to 9000.
-const MAX = 55_000; 
+// Hobby plan caps maxDuration at 10s.
+// Stop the crawler at 8.5s to leave time to flush to Blob.
+const MAX = 8_500; 
 
 module.exports = async (req, res) => {
   try {
