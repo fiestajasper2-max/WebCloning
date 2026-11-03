@@ -1,16 +1,18 @@
 // api/build.js
-const { nanoid } = require('nanoid');
+const crypto = require('crypto');
 const store = require('../lib/store');
 
-// Hobby plan caps maxDuration at 10s.
-// Stop the crawler at 8.5s to leave time to flush to Blob.
 const MAX = 8_500; 
 
 module.exports = async (req, res) => {
   try {
-    // Required inside the handler so Chromium/module load errors
-    // are caught by this try/catch instead of crashing the whole function.
-    const { crawlSlice } = require('../lib/crawler');
+    // Catch module load failures so the function doesn't ghost-crash
+    let crawlSlice;
+    try {
+      crawlSlice = require('../lib/crawler').crawlSlice;
+    } catch (e) {
+      throw new Error(`Failed to load crawler: ${e.message}`);
+    }
 
     if (req.method !== 'POST') {
       return res.status(405).json({ error: 'POST only' });
@@ -29,7 +31,10 @@ module.exports = async (req, res) => {
       if (!url || !/^https?:\/\//.test(url)) {
         return res.status(400).json({ error: 'give me a full http(s) url' });
       }
-      jobId = nanoid(10);
+      
+      // Built-in crypto replaces nanoid
+      jobId = crypto.randomUUID().split('-')[0]; 
+      
       state = {
         id: jobId,
         startUrl: url,
@@ -45,7 +50,7 @@ module.exports = async (req, res) => {
       await store.putJson(`jobs/${jobId}/meta.json`, state);
     }
 
-    // Run one slice — bounded by maxDuration
+    // Run one slice
     const next = await crawlSlice({ 
       id: jobId, 
       startUrl: state.startUrl, 
@@ -62,10 +67,7 @@ module.exports = async (req, res) => {
     });
 
   } catch (error) {
-    // This prints the REAL error to Vercel logs
     console.error("Vercel Function Error:", error);
-    
-    // This sends the REAL error to your browser UI
     return res.status(500).json({ 
       error: error.message || "Unknown crash",
       stack: error.stack 
