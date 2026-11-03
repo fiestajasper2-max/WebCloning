@@ -1,6 +1,7 @@
 {
-  "name": "mirrorforge",
-  "version": "1.0.0",
+  "scripts": {
+    "vercel-build": "echo 'Building with Chromium support'"
+  },
   "dependencies": {
     "@vercel/blob": "^0.23.4",
     "@sparticuz/chromium": "^123.0.1",
