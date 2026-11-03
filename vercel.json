@@ -1,12 +1,12 @@
 {
   "functions": {
-    "api/build.js": {
-      "maxDuration": 60,
-      "memory": 3008
+    "api/build.js": { 
+      "maxDuration": 10, 
+      "memory": 2048 
     },
-    "api/m/[id]/[...path].js": {
-      "maxDuration": 30,
-      "memory": 1024
+    "api/m/[id]/[...path].js": { 
+      "maxDuration": 10, 
+      "memory": 1024 
     }
   }
 }
